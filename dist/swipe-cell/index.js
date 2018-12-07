@@ -40,11 +40,11 @@ VantComponent({
       var offset = position === 'left' ? leftWidth : -rightWidth;
       this.swipeMove(offset);
       this.resetSwipeStatus();
+      this.$emit('opened', position);
     },
     close: function close() {
-      this.setData({
-        offset: 0
-      });
+      this.swipeMove();
+      this.$emit('closed');
     },
     resetSwipeStatus: function resetSwipeStatus() {
       this.swiping = false;

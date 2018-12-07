@@ -25,7 +25,7 @@ VantComponent({
   },
 
   computed: {
-    wrapperStyle() {
+    wrapperStyle () {
       const { offset, draging } = this.data;
       const transform = `translate3d(${offset}px, 0, 0)`;
       const transition = draging ? 'none' : '.6s cubic-bezier(0.18, 0.89, 0.32, 1)';
@@ -39,33 +39,35 @@ VantComponent({
   },
 
   methods: {
-    onTransitionend() {
+    onTransitionend () {
       this.swipe = false;
     },
 
-    open(position) {
+    open (position) {
       const { leftWidth, rightWidth } = this.data;
       const offset = position === 'left' ? leftWidth : -rightWidth;
       this.swipeMove(offset);
       this.resetSwipeStatus();
+      this.$emit('opened', position);
     },
 
-    close() {
-      this.setData({ offset: 0 });
+    close () {
+      this.swipeMove();
+      this.$emit('closed');
     },
 
-    resetSwipeStatus() {
+    resetSwipeStatus () {
       this.swiping = false;
       this.opened = true;
     },
 
-    swipeMove(offset = 0) {
+    swipeMove (offset = 0) {
       this.setData({ offset });
       offset && (this.swiping = true);
       !offset && (this.opened = false);
     },
 
-    swipeLeaveTransition(direction) {
+    swipeLeaveTransition (direction) {
       const { offset, leftWidth, rightWidth } = this.data;
       const threshold = this.opened ? 1 - THRESHOLD : THRESHOLD;
 
@@ -80,7 +82,7 @@ VantComponent({
       }
     },
 
-    startDrag(event) {
+    startDrag (event) {
       if (this.data.disabled) {
         return;
       }
@@ -93,7 +95,7 @@ VantComponent({
       }
     },
 
-    onDrag(event) {
+    onDrag (event) {
       if (this.data.disabled) {
         return;
       }
@@ -114,7 +116,7 @@ VantComponent({
       }
     },
 
-    endDrag() {
+    endDrag () {
       if (this.data.disabled) {
         return;
       }
@@ -125,7 +127,7 @@ VantComponent({
       }
     },
 
-    onClick(event) {
+    onClick (event) {
       const { key: position = 'outside' } = event.currentTarget.dataset;
       this.$emit('click', position);
 

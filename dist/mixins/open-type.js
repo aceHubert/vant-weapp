@@ -4,19 +4,49 @@ export var openType = Behavior({
   },
   methods: {
     bindGetUserInfo: function bindGetUserInfo(event) {
-      this.$emit('getuserinfo', event.detail);
+      var callback;
+
+      if (callback = this.data['onGetUserInfo']) {
+        callback(event.detail);
+      } else {
+        this.$emit('getuserinfo', event.detail);
+      }
     },
     bindContact: function bindContact(event) {
-      this.$emit('contact', event.detail);
+      var callback;
+
+      if (callback = this.data['onContact']) {
+        callback(event.detail);
+      } else {
+        this.$emit('contact', event.detail);
+      }
     },
     bindGetPhoneNumber: function bindGetPhoneNumber(event) {
-      this.$emit('getphonenumber', event.detail);
+      var callback;
+
+      if (callback = this.data['onGetPhoneNumber']) {
+        callback(event.detail);
+      } else {
+        this.$emit('getphonenumber', event.detail);
+      }
     },
     bindOpenSetting: function bindOpenSetting(event) {
-      this.$emit('opensetting', event.detail);
+      var callback;
+
+      if (callback = this.data['onOpenSetting']) {
+        callback(event.detail);
+      } else {
+        this.$emit('opensetting', event.detail);
+      }
     },
     bindError: function bindError(event) {
-      this.$emit('error', event.detail);
+      var callback;
+
+      if (callback = this.data['onError']) {
+        callback(event.detail);
+      } else {
+        this.$emit('error', event.detail);
+      }
     }
   }
 });
